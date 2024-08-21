@@ -4,20 +4,20 @@ import { login } from '../services/api';
 const AuthForm = ({ onLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // State for error message
+    const [error, setError] = useState(''); 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setError(''); // Clear any previous error message
+        setError(''); 
         try {
             const response = await login({ username, password });
             const { token, user } = response.data.data;
             localStorage.setItem('user', user);
-            localStorage.setItem('token', token); // Store the token in localStorage
-            onLogin(user); // Call onLogin callback with user data
+            localStorage.setItem('token', token);
+            onLogin(user); 
             window.location.reload();
         } catch (error) {
             console.error('Login error:', error.response?.data?.message || error.message);
-            setError(error.response?.data?.message || 'Login failed. Please try again.'); // Set the error message
+            setError(error.response?.data?.message || 'Login failed. Please try again.');
         }
     };
 

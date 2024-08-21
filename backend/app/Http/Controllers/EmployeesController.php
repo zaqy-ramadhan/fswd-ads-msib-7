@@ -9,7 +9,6 @@ use Illuminate\Validation\ValidationException;
 
 class EmployeesController extends Controller
 {
-    // Menampilkan daftar karyawan
     public function index(Request $request)
     {        
         $query = Employee::with('cuti');
@@ -18,7 +17,6 @@ class EmployeesController extends Controller
             $query->where('nama', 'like', '%' . $request->input('name') . '%');
         }
     
-        // Check if 'all' parameter is present
         if ($request->has('all') && $request->input('all') == 'true') {
             $employees = $query->get();
             $pagination = null;
@@ -57,7 +55,6 @@ class EmployeesController extends Controller
         ]);
     }
 
-    // Menambahkan data karyawan
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -117,28 +114,28 @@ class EmployeesController extends Controller
 
     // Mengupdate data karyawan
     public function update(Request $request, $id)
-{
-    $validatedData = $request->validate([
-        'nama' => 'required|string|max:255',
-        'alamat' => 'required|string|max:500',
-        'tgl_lahir' => 'required|date',
-        'tgl_bergabung' => 'required|date',
-    ]);
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'alamat' => 'required|string|max:500',
+            'tgl_lahir' => 'required|date',
+            'tgl_bergabung' => 'required|date',
+        ]);
 
-    $employee = Employee::findOrFail($id);
+        $employee = Employee::findOrFail($id);
 
-    // Update employee details
-    $employee->nama = $validatedData['nama'];
-    $employee->alamat = $validatedData['alamat'];
-    $employee->tgl_bergabung = $validatedData['tgl_bergabung'];
-    $employee->tgl_lahir = $validatedData['tgl_lahir'];
-    $employee->save();
+        // Update employee details
+        $employee->nama = $validatedData['nama'];
+        $employee->alamat = $validatedData['alamat'];
+        $employee->tgl_bergabung = $validatedData['tgl_bergabung'];
+        $employee->tgl_lahir = $validatedData['tgl_lahir'];
+        $employee->save();
 
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Employee updated successfully',
-    ]);
-}
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Employee updated successfully',
+        ]);
+    }
 
 
     // Menghapus data karyawan
