@@ -7,17 +7,19 @@ import Navigation from './components/Navigation';
 
 const App = () => {
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
+        setLoading(false);
     }, []);
 
     useEffect(() => {
         document.title = 'ADS Leave System';
-      }, []);
+    }, []);
 
     const handleLogin = (user) => {
         setUser(user);
@@ -28,6 +30,10 @@ const App = () => {
         setUser(null);
         localStorage.removeItem('user');
     };
+
+    if (loading) {
+        return <div>Loading...</div>; // Or a loading spinner
+    }
 
     return (
         <Router>

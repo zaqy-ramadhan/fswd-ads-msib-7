@@ -10,6 +10,7 @@ const CutiDetails = () => {
     const [lamaCuti, setLamaCuti] = useState('');
     const [keterangan, setKeterangan] = useState('');
     const [idKaryawan, setIdKaryawan] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const fetchCuti = async () => {
@@ -21,6 +22,7 @@ const CutiDetails = () => {
                 setLamaCuti(cutiData.lama_cuti);
                 setKeterangan(cutiData.keterangan);
                 setIdKaryawan(cutiData.id_karyawan);
+
             } catch (error) {
                 console.error('Error fetching cuti details:', error.response?.data?.message || error.message);
             }
@@ -37,6 +39,7 @@ const CutiDetails = () => {
             keterangan,
             id_karyawan: idKaryawan,
         };
+        setErrorMessage('');
 
         try {
             await updateCuti(id, updatedCuti);
@@ -44,7 +47,8 @@ const CutiDetails = () => {
                 state: { message: 'Leave data updated successfully.', messageType: 'success' }
             });
         } catch (error) {
-            console.error('Error updating cuti:', error.response?.data?.message || error.message);
+            setErrorMessage(error.response?.data?.message || 'An error occurred while saving the data.');
+            // console.error('Error updating cuti:', error.response?.data?.message || error.message);
         }
     };
 
@@ -53,6 +57,11 @@ const CutiDetails = () => {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+            {errorMessage && (
+                    <div className="mb-4 p-4 bg-red-100 text-red-800 border border-red-300 rounded-md">
+                        {errorMessage}
+                    </div>
+                )}
                 <h2 className="text-2xl font-bold mb-6 text-center">Edit Leave Record</h2>
                 <form onSubmit={handleUpdate}>
                     <div className="mb-4">

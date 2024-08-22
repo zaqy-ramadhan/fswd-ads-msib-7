@@ -9,8 +9,8 @@ const CutiForm = () => {
     const [idKaryawan, setIdKaryawan] = useState('');
     const [employees, setEmployees] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const navigate = useNavigate(); // Initialize useNavigate
-
+    const navigate = useNavigate(); 
+    
     useEffect(() => {
         const fetchEmployeeList = async (all=true) => {
             try {

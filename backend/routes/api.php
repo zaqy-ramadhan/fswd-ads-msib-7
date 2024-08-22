@@ -6,7 +6,7 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\CutiController;
 
 Route::post('/login', [AuthController::class, 'login']);
-// Rute dengan autentikasi
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/cuti', [CutiController::class, 'index']);
