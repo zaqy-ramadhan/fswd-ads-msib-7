@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchCutis, deleteCuti } from "../services/api"; // Adjust the import according to your API service
+import { fetchCutis, deleteCuti } from "../services/api";
 import { Link, useLocation } from "react-router-dom";
 import { FiEdit, FiTrash, FiPlus } from "react-icons/fi";
 

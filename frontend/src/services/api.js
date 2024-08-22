@@ -33,7 +33,6 @@ const token = getAuthToken();
 
 export const fetchEmployees = async (page = 1, perPage = 10, name = "", all) => {
   try {
-    // console.log(token);
     const response = await axios.get(`${BASE_URL}employees`, {
       params: {
         page,
